@@ -19,6 +19,30 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
+// --- Mobile hamburger menu ---
+const navToggle = document.getElementById('nav-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+
+function setMobileMenuOpen(isOpen) {
+  mobileMenu.classList.toggle('is-open', isOpen);
+  navToggle.classList.toggle('is-active', isOpen);
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+  if (isOpen) {
+    lenis.stop();
+  } else {
+    lenis.start();
+  }
+}
+
+navToggle.addEventListener('click', () => {
+  setMobileMenuOpen(!mobileMenu.classList.contains('is-open'));
+});
+
+mobileMenu.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => setMobileMenuOpen(false));
+});
+
 // --- Top progress bar ---
 const progressFill = document.getElementById('progress-fill');
 lenis.on('scroll', ({ scroll, limit }) => {
