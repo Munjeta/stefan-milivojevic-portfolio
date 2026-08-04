@@ -1001,6 +1001,23 @@ a { color: inherit; text-decoration: none; }
   .work__grid { grid-template-columns: repeat(2, 1fr); }
   .contact__grid { grid-template-columns: 1fr; }
   .form__row { grid-template-columns: 1fr; }
+
+  .chip { align-items: center; text-align: center; }
+  .feature { text-align: center; }
+  .work-card { text-align: center; }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .footer__brand { order: 1; }
+  .footer__links--services { order: 2; }
+  .footer__links--features { order: 3; }
+  .footer__contact { order: 4; }
+  .footer__links { align-items: center; }
+  .footer__contact { align-items: center; }
+  .footer__socials { justify-content: center; }
 }
 
 @media (max-width: 560px) {
