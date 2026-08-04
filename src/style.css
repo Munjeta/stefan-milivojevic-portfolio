@@ -989,6 +989,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 900px) {
+  .hero { padding-top: 6.5rem; }
   .hero__group { flex-direction: column-reverse; }
   .hero__content { text-align: center; max-width: 100%; }
   .hero__cta { justify-content: center; }
@@ -1000,28 +1001,6 @@ a { color: inherit; text-decoration: none; }
   .work__grid { grid-template-columns: repeat(2, 1fr); }
   .contact__grid { grid-template-columns: 1fr; }
   .form__row { grid-template-columns: 1fr; }
-
-  /* center-align content on tablet/mobile */
-  .about__grid { text-align: center; }
-  .features { text-align: center; }
-  .pillar {
-    text-align: center;
-    border-left: none;
-    padding-left: 0;
-    border-top: 2px solid rgba(79, 125, 251, 0.15);
-    padding-top: 1.5rem;
-    transform: translateY(20px);
-  }
-  .pillar.is-active {
-    border-left-color: transparent;
-    border-top-color: var(--accent);
-    transform: translateY(0);
-  }
-  .work-card { text-align: center; }
-  .contact__row { justify-content: center; }
-  .contact__row-text { flex: 0 1 auto; text-align: left; }
-  .contact__location { justify-content: center; }
-  .footer__links { align-items: center; text-align: center; }
 }
 
 @media (max-width: 560px) {
