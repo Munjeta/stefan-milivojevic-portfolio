@@ -260,7 +260,7 @@ contactForm.addEventListener('submit', (e) => {
     return;
   }
 
-  const subject = encodeURIComponent(`Upit sa sajta — ${name}`);
+  const subject = encodeURIComponent(`Upit sa sajta - ${name}`);
   const bodyLines = [
     `Ime i prezime: ${name}`,
     phone ? `Telefon: ${phone}` : null,
