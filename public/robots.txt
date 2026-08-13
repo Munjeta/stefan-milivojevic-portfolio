@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stefan-milivojevic-portfolio.vercel.app/sitemap.xml
+Sitemap: https://milivojevic-webdev.vercel.app/sitemap.xml
