@@ -3,7 +3,7 @@
   --ink: #0b0c0e;
   --ink-2: #131417;
   --cream: #f2f1ee;
-  --cream-dim: #a2a5ab;
+  --cream-dim: #cfcdc9;
   --accent: #f2f1ee;
   --accent-dim: #6d7077;
   --line: rgba(var(--fg-rgb), 0.1);
@@ -15,7 +15,7 @@
   /* rgb triplets of the same colours, for rgba(var(--x-rgb), a) */
   --fg-rgb: 242, 241, 238;
   --bg-rgb: 11, 12, 14;
-  --dim-rgb: 162, 165, 171;
+  --dim-rgb: 207, 205, 201;
   --ink-3: #0f1012;
   --solid-hover: #ffffff;
   --card-border: var(--line); /* frame of the work / contact cards */
@@ -34,13 +34,13 @@
   --ink-2: #e0dfdb;
   --ink-3: #deddd9;
   --cream: #0b0c0e;
-  --cream-dim: #4a4d53;
+  --cream-dim: #2a2c30;
   --accent: #0b0c0e;
   --accent-dim: #8a8d93;
   --line: rgba(11, 12, 14, 0.12);
   --fg-rgb: 11, 12, 14;
   --bg-rgb: 242, 241, 238;
-  --dim-rgb: 74, 77, 83;
+  --dim-rgb: 42, 44, 48;
   --solid-hover: #000000;
   --logo-filter: invert(1);
   --card-border: rgba(11, 12, 14, 0.24);
@@ -53,13 +53,13 @@
     --ink-2: #e0dfdb;
     --ink-3: #deddd9;
     --cream: #0b0c0e;
-    --cream-dim: #4a4d53;
+    --cream-dim: #2a2c30;
     --accent: #0b0c0e;
     --accent-dim: #8a8d93;
     --line: rgba(11, 12, 14, 0.12);
     --fg-rgb: 11, 12, 14;
     --bg-rgb: 242, 241, 238;
-    --dim-rgb: 74, 77, 83;
+    --dim-rgb: 42, 44, 48;
     --solid-hover: #000000;
     --logo-filter: invert(1);
     --card-border: rgba(11, 12, 14, 0.24);
@@ -869,7 +869,7 @@ section[id] { scroll-margin-top: 3rem; }
   resize: vertical;
 }
 .form__field input::placeholder,
-.form__field textarea::placeholder { color: rgba(var(--dim-rgb), 0.9); }
+.form__field textarea::placeholder { color: rgba(var(--dim-rgb), 0.7); }
 .form__field input:focus,
 .form__field textarea:focus {
   border-color: var(--cream);
