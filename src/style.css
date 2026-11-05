@@ -218,69 +218,89 @@ section[id] { scroll-margin-top: 3rem; }
 .nav__links a { opacity: 0.7; transition: opacity 0.3s var(--ease); }
 .nav__links a:hover { opacity: 1; }
 
-.nav__toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  z-index: 220;
-}
-.nav__toggle span {
-  width: 22px;
-  height: 2px;
-  background: var(--cream);
-  border-radius: 2px;
-  transition: transform 0.35s var(--ease), opacity 0.25s var(--ease);
-}
-.nav__toggle.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav__toggle.is-active span:nth-child(2) { opacity: 0; }
-.nav__toggle.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav__toggle { display: none; }
 
-.mobile-menu {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 190;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.4rem;
-  padding: 90px clamp(1.5rem, 5vw, 4rem) 2rem;
-  background: rgba(var(--bg-rgb), 0.96);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--line);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(-16px);
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), visibility 0s linear 0.35s;
-}
-.mobile-menu.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0);
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), visibility 0s;
-}
-.mobile-menu a {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: 1.7rem;
-  color: var(--cream);
-}
-.mobile-menu a:hover { color: var(--cream-dim); }
+/* Phone / tablet menu: the bar itself grows and shows the links (same pattern as vrticola.rs). */
+.mobile-menu { display: none; }
 
 @media (max-width: 900px) {
+  .nav { flex-wrap: wrap; padding-top: 0.75rem; padding-bottom: 0.75rem; }
   .nav__brand-text { display: none; }
   .nav__links { display: none; }
-  .nav__toggle { display: flex; }
-  .nav__right { gap: 0.5rem; }
+  .nav__right { gap: 0.6rem; }
+
+  /* theme + menu buttons: matching rounded squares */
+  .theme-toggle,
+  .nav__toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--ink-2);
+    color: var(--cream);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease);
+  }
+  .theme-toggle:hover,
+  .nav__toggle:hover { border-color: rgba(var(--fg-rgb), 0.4); background: var(--ink-2); }
+  .nav__toggle { display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+  .nav__toggle:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+  .nav__toggle span {
+    display: block;
+    position: relative;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.28s var(--ease), background-color 0.2s;
+  }
+  .nav__toggle span::before,
+  .nav__toggle span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.28s var(--ease), top 0.28s var(--ease);
+  }
+  .nav__toggle span::before { top: -6px; }
+  .nav__toggle span::after { top: 6px; }
+  .nav__toggle[aria-expanded="true"] span { background: transparent; }
+  .nav__toggle[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+  .nav__toggle[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
+
+  /* the menu: a full-width row under the logo and buttons that unfolds */
+  .mobile-menu {
+    display: grid;
+    order: 4;
+    flex: 0 0 100%;
+    gap: 2px;
+    max-height: 0;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.32s var(--ease), opacity 0.25s var(--ease), margin 0.32s var(--ease), visibility 0s linear 0.32s;
+  }
+  .mobile-menu.is-open {
+    max-height: 420px;
+    margin: 4px 0 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    opacity: 1;
+    visibility: visible;
+    transition: max-height 0.32s var(--ease), opacity 0.25s var(--ease), margin 0.32s var(--ease), visibility 0s;
+  }
+  .mobile-menu a {
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: var(--cream-dim);
+    transition: color 0.2s, background-color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--cream); background: rgba(var(--fg-rgb), 0.06); }
 }
 
 /* HERO */

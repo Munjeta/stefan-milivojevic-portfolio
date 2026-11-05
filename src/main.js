@@ -16,20 +16,15 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
-// Mobile menu: closed state is `inert` so keyboard and screen readers skip its links.
+// Mobile menu: opens as a row inside the nav bar. Closed state is `inert` so keyboard and screen readers skip its links.
 const navToggle = document.getElementById('nav-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 
 function setMobileMenuOpen(isOpen) {
   mobileMenu.classList.toggle('is-open', isOpen);
   mobileMenu.inert = !isOpen;
-  mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-  navToggle.classList.toggle('is-active', isOpen);
   navToggle.setAttribute('aria-expanded', String(isOpen));
   navToggle.setAttribute('aria-label', isOpen ? 'Zatvori meni' : 'Otvori meni');
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-  if (isOpen) lenis.stop();
-  else lenis.start();
 }
 
 navToggle.addEventListener('click', () => {
@@ -43,6 +38,11 @@ document.addEventListener('keydown', (e) => {
     setMobileMenuOpen(false);
     navToggle.focus();
   }
+});
+// a click anywhere outside the menu and its button closes it
+document.addEventListener('click', (e) => {
+  if (!mobileMenu.classList.contains('is-open')) return;
+  if (!mobileMenu.contains(e.target) && !navToggle.contains(e.target)) setMobileMenuOpen(false);
 });
 window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
   if (e.matches) setMobileMenuOpen(false);
