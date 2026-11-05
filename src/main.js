@@ -87,7 +87,8 @@ systemLight.addEventListener('change', (e) => {
 
 // Scroll spy: the nav link of the section you are in gets .is-active (and aria-current).
 const spyLinks = [...document.querySelectorAll('.nav__links a, .mobile-menu a')];
-const spySections = ['work', 'about', 'pillars', 'finale'].map((id) => document.getElementById(id)).filter(Boolean);
+// keep this list in page order
+const spySections = ['about', 'work', 'pillars', 'finale'].map((id) => document.getElementById(id)).filter(Boolean);
 
 function updateActiveLink() {
   const line = window.innerHeight * 0.45;
