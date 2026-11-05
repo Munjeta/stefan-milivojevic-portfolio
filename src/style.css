@@ -6,19 +6,108 @@
   --cream-dim: #a2a5ab;
   --accent: #f2f1ee;
   --accent-dim: #6d7077;
-  --line: rgba(242, 241, 238, 0.1);
+  --line: rgba(var(--fg-rgb), 0.1);
   --font-display: "Archivo Black", "Archivo", sans-serif;
   --font-serif: "Bodoni Moda", Georgia, "Times New Roman", serif;
   --font-body: "Archivo", sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* rgb triplets of the same colours, for rgba(var(--x-rgb), a) */
+  --fg-rgb: 242, 241, 238;
+  --bg-rgb: 11, 12, 14;
+  --dim-rgb: 162, 165, 171;
+  --ink-3: #0f1012;
+  --solid-hover: #ffffff;
+  --logo-filter: none; /* the logo file is white; the light theme inverts it */
+  --bg-overlay: 0.7; /* how strongly --bg-rgb covers the background photo (0 = photo only, 1 = none) */
+  color-scheme: dark;
+}
+
+/* LIGHT THEME
+   The site's own two colours swap roles (cream becomes the page, ink becomes the text).
+   Applied when the visitor's system prefers light, or forced with <html data-theme="light">.
+   <html data-theme="dark"> keeps the dark theme whatever the system says. */
+:root[data-theme="light"] {
+  --ink: #f2f1ee;
+  --ink-2: #e9e8e4;
+  --ink-3: #deddd9;
+  --cream: #0b0c0e;
+  --cream-dim: #4a4d53;
+  --accent: #0b0c0e;
+  --accent-dim: #8a8d93;
+  --line: rgba(11, 12, 14, 0.12);
+  --fg-rgb: 11, 12, 14;
+  --bg-rgb: 242, 241, 238;
+  --dim-rgb: 74, 77, 83;
+  --solid-hover: #000000;
+  --logo-filter: invert(1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ink: #f2f1ee;
+    --ink-2: #e9e8e4;
+    --ink-3: #deddd9;
+    --cream: #0b0c0e;
+    --cream-dim: #4a4d53;
+    --accent: #0b0c0e;
+    --accent-dim: #8a8d93;
+    --line: rgba(11, 12, 14, 0.12);
+    --fg-rgb: 11, 12, 14;
+    --bg-rgb: 242, 241, 238;
+    --dim-rgb: 74, 77, 83;
+    --solid-hover: #000000;
+    --logo-filter: invert(1);
+    color-scheme: light;
+  }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { background: var(--ink); }
 html, body { height: 100%; }
 
+/* SITE BACKGROUND
+   Two fixed layers behind everything (z-index below all content, no background-attachment: fixed, no parallax):
+   ::before = the pre-blurred photo, ::after = a flat overlay in the page colour that keeps text readable.
+   Files: src/assets/bg/ (made by bg-source/make-bg.py). Phones get the 900px version, wider screens the 1920px one.
+   Change overlay strength with --bg-overlay in :root above. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh; /* large viewport: no resize jump when mobile browser bars hide */
+  pointer-events: none;
+}
+body::before {
+  z-index: -2;
+  background: url("./assets/bg/bg-dark-900.webp") center / cover no-repeat;
+}
+body::after {
+  z-index: -1;
+  background: rgba(var(--bg-rgb), var(--bg-overlay));
+}
+@media (min-width: 768px) {
+  body::before { background-image: url("./assets/bg/bg-dark-1920.webp"); }
+}
+:root[data-theme="light"] body::before { background-image: url("./assets/bg/bg-light-900.webp"); }
+@media (min-width: 768px) {
+  :root[data-theme="light"] body::before { background-image: url("./assets/bg/bg-light-1920.webp"); }
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) body::before { background-image: url("./assets/bg/bg-light-900.webp"); }
+}
+@media (prefers-color-scheme: light) and (min-width: 768px) {
+  :root:not([data-theme="dark"]) body::before { background-image: url("./assets/bg/bg-light-1920.webp"); }
+}
+
+img.nav__logo, img.card3d__logo, img.footer__logo { filter: var(--logo-filter); }
+
 body {
-  background: var(--ink);
   color: var(--cream);
   font-family: var(--font-body);
   overflow-x: hidden;
@@ -47,7 +136,7 @@ section[id] { scroll-margin-top: 3rem; }
   width: 100%;
   height: 2px;
   z-index: 200;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(var(--fg-rgb), 0.06);
 }
 #progress-fill {
   height: 100%;
@@ -64,7 +153,7 @@ section[id] { scroll-margin-top: 3rem; }
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem clamp(1.5rem, 5vw, 4rem);
-  background: rgba(11, 12, 14, 0.78);
+  background: rgba(var(--bg-rgb), 0.78);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -129,7 +218,7 @@ section[id] { scroll-margin-top: 3rem; }
   align-items: flex-start;
   gap: 1.4rem;
   padding: 90px clamp(1.5rem, 5vw, 4rem) 2rem;
-  background: rgba(11, 12, 14, 0.96);
+  background: rgba(var(--bg-rgb), 0.96);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--line);
@@ -205,7 +294,7 @@ section[id] { scroll-margin-top: 3rem; }
   border-radius: 18px;
   overflow: hidden;
   backface-visibility: hidden;
-  border: 1px solid rgba(242, 241, 238, 0.16);
+  border: 1px solid rgba(var(--fg-rgb), 0.16);
   background: var(--ink-2);
 }
 .card3d__face--front img {
@@ -218,7 +307,7 @@ section[id] { scroll-margin-top: 3rem; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(160deg, var(--ink-2), #0f1012);
+  background: linear-gradient(160deg, var(--ink-2), var(--ink-3));
 }
 .card3d__logo {
   width: 40%;
@@ -296,9 +385,9 @@ section[id] { scroll-margin-top: 3rem; }
   color: var(--ink);
   font-weight: 600;
 }
-.btn--solid:hover { transform: translateY(-3px); background: #ffffff; }
+.btn--solid:hover { transform: translateY(-3px); background: var(--solid-hover); }
 .btn--ghost {
-  border: 1px solid rgba(242, 241, 238, 0.25);
+  border: 1px solid rgba(var(--fg-rgb), 0.25);
   color: var(--cream);
 }
 .btn--ghost:hover { border-color: var(--cream); transform: translateY(-3px); }
@@ -366,7 +455,7 @@ section[id] { scroll-margin-top: 3rem; }
   transition: border-color 0.4s var(--ease);
 }
 .work-card--featured { grid-column: span 3; }
-.work-card:hover { border-color: rgba(242, 241, 238, 0.4); }
+.work-card:hover { border-color: rgba(var(--fg-rgb), 0.4); }
 .work-card__preview {
   position: relative;
   width: 100%;
@@ -522,7 +611,7 @@ section[id] { scroll-margin-top: 3rem; }
   width: var(--node);
   height: var(--node);
   margin: 0 auto 1.5rem;
-  border: 1.5px solid rgba(242, 241, 238, 0.4);
+  border: 1.5px solid rgba(var(--fg-rgb), 0.4);
   border-radius: 50%;
   background: var(--ink);
   color: var(--cream);
@@ -627,13 +716,13 @@ section[id] { scroll-margin-top: 3rem; }
   gap: 1rem;
   padding: 1.1rem 1.25rem;
   border-radius: 14px;
-  background: rgba(242, 241, 238, 0.03);
-  border: 1px solid rgba(242, 241, 238, 0.06);
+  background: rgba(var(--fg-rgb), 0.03);
+  border: 1px solid rgba(var(--fg-rgb), 0.06);
   transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
 }
 .contact__row:hover {
-  border-color: rgba(242, 241, 238, 0.35);
-  background: rgba(242, 241, 238, 0.05);
+  border-color: rgba(var(--fg-rgb), 0.35);
+  background: rgba(var(--fg-rgb), 0.05);
 }
 .contact__icon {
   display: flex;
@@ -643,7 +732,7 @@ section[id] { scroll-margin-top: 3rem; }
   height: 42px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: rgba(242, 241, 238, 0.08);
+  background: rgba(var(--fg-rgb), 0.08);
   color: var(--cream);
 }
 .contact__icon svg { width: 19px; height: 19px; }
@@ -713,8 +802,8 @@ section[id] { scroll-margin-top: 3rem; }
   font-family: var(--font-body);
   font-size: 0.95rem;
   color: var(--cream);
-  background: rgba(242, 241, 238, 0.04);
-  border: 1px solid rgba(242, 241, 238, 0.12);
+  background: rgba(var(--fg-rgb), 0.04);
+  border: 1px solid rgba(var(--fg-rgb), 0.12);
   border-radius: 10px;
   padding: 0.85rem 1rem;
   outline: none;
@@ -722,11 +811,11 @@ section[id] { scroll-margin-top: 3rem; }
   resize: vertical;
 }
 .form__field input::placeholder,
-.form__field textarea::placeholder { color: rgba(162, 165, 171, 0.75); }
+.form__field textarea::placeholder { color: rgba(var(--dim-rgb), 0.75); }
 .form__field input:focus,
 .form__field textarea:focus {
   border-color: var(--cream);
-  background: rgba(242, 241, 238, 0.06);
+  background: rgba(var(--fg-rgb), 0.06);
 }
 .form__submit {
   display: flex;
@@ -745,7 +834,7 @@ section[id] { scroll-margin-top: 3rem; }
   cursor: pointer;
   transition: transform 0.35s var(--ease), background 0.35s var(--ease);
 }
-.form__submit:hover { background: #ffffff; transform: translateY(-2px); }
+.form__submit:hover { background: var(--solid-hover); transform: translateY(-2px); }
 .form__submit svg { width: 17px; height: 17px; }
 .form__status {
   min-height: 1.2em;
@@ -794,14 +883,14 @@ section[id] { scroll-margin-top: 3rem; }
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  border: 1px solid rgba(242, 241, 238, 0.15);
+  border: 1px solid rgba(var(--fg-rgb), 0.15);
   color: var(--cream);
   transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
 .footer__social svg { width: 17px; height: 17px; }
 .footer__social:hover {
   border-color: var(--cream);
-  background: rgba(242, 241, 238, 0.08);
+  background: rgba(var(--fg-rgb), 0.08);
 }
 .footer__links {
   display: flex;
@@ -847,7 +936,7 @@ section[id] { scroll-margin-top: 3rem; }
   transform: translateY(0);
   pointer-events: auto;
 }
-.back-to-top:hover { background: #ffffff; }
+.back-to-top:hover { background: var(--solid-hover); }
 .back-to-top svg {
   width: 20px;
   height: 20px;
@@ -896,7 +985,7 @@ section[id] { scroll-margin-top: 3rem; }
     display: block;
     height: 3.5rem;
     margin: 2rem auto 2rem;
-    border-left: 3px dotted rgba(162, 165, 171, 0.55);
+    border-left: 3px dotted rgba(var(--dim-rgb), 0.55);
     width: 0;
   }
 
