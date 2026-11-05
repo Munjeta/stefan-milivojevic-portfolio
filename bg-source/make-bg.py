@@ -16,7 +16,7 @@ SRC = ROOT / "bg-source" / "bg-code-original.jpg"
 OUT = ROOT / "src" / "assets" / "bg"
 
 # ---- knobs ---------------------------------------------------------------
-BLUR_1920 = 20     # gaussian radius in px at 1920 wide (the 900 wide version is scaled to look the same)
+BLUR_1920 = 12     # gaussian radius in px at 1920 wide (the 900 wide version is scaled to look the same)
 GAIN = 1.0         # >1 brightens the glow, <1 dims it (before the CSS overlay is applied)
 QUALITY = 70       # WebP quality
 GLOW_PERCENTILE = 96   # lower = code lines reach full brightness sooner (more contrast), the brightest spots just clip
