@@ -838,7 +838,7 @@ section[id] { scroll-margin-top: 3rem; }
   text-transform: uppercase;
   color: var(--cream-dim);
 }
-.form__field label small { font-size: 0.75rem; text-transform: none; letter-spacing: normal; opacity: 0.8; }
+.form__field label small { font-size: 0.75rem; text-transform: none; letter-spacing: normal; opacity: 0.9; }
 .form__field input,
 .form__field textarea {
   font-family: var(--font-body);
@@ -853,7 +853,7 @@ section[id] { scroll-margin-top: 3rem; }
   resize: vertical;
 }
 .form__field input::placeholder,
-.form__field textarea::placeholder { color: rgba(var(--dim-rgb), 0.75); }
+.form__field textarea::placeholder { color: rgba(var(--dim-rgb), 0.9); }
 .form__field input:focus,
 .form__field textarea:focus {
   border-color: var(--cream);
