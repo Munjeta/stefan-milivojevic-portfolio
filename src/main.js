@@ -85,6 +85,31 @@ systemLight.addEventListener('change', (e) => {
   if (!savedTheme()) applyTheme(e.matches ? 'light' : 'dark');
 });
 
+// Scroll spy: the nav link of the section you are in gets .is-active (and aria-current).
+const spyLinks = [...document.querySelectorAll('.nav__links a, .mobile-menu a')];
+const spySections = ['work', 'about', 'pillars', 'finale'].map((id) => document.getElementById(id)).filter(Boolean);
+
+function updateActiveLink() {
+  const line = window.innerHeight * 0.45;
+  let current = null;
+  spySections.forEach((section) => {
+    if (section.getBoundingClientRect().top <= line) current = section.id;
+  });
+  // at the very bottom the last section wins even if its top never reaches the line
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = 'finale';
+  spyLinks.forEach((link) => {
+    const on = link.getAttribute('href') === `#${current}`;
+    link.classList.toggle('is-active', on);
+    if (on) link.setAttribute('aria-current', 'true');
+    else link.removeAttribute('aria-current');
+  });
+}
+
+lenis.on('scroll', updateActiveLink);
+window.addEventListener('resize', updateActiveLink);
+window.addEventListener('load', updateActiveLink);
+updateActiveLink();
+
 const progressFill = document.getElementById('progress-fill');
 lenis.on('scroll', ({ scroll, limit }) => {
   const pct = limit > 0 ? (scroll / limit) * 100 : 0;
