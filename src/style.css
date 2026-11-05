@@ -293,6 +293,11 @@ section[id] { scroll-margin-top: 3rem; }
   padding: 0 clamp(1.5rem, 6vw, 6rem);
   overflow: hidden;
 }
+/* Desktop: the hero is at most 46rem tall (not always the full screen), so tall monitors
+   don't get a big empty band between the hero and "Izabrani radovi". */
+@media (min-width: 901px) {
+  .hero { min-height: min(100svh, 46rem); padding-top: 4.5rem; padding-bottom: 0; }
+}
 
 .hero__group {
   position: relative;
@@ -466,7 +471,7 @@ section[id] { scroll-margin-top: 3rem; }
 }
 
 /* WORK */
-.work { padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 6rem) clamp(4rem, 8vw, 7rem); }
+.work { padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 6vw, 6rem) clamp(4rem, 8vw, 7rem); }
 .work__header { max-width: var(--content-max); margin: 0 auto 3.5rem; text-align: center; }
 .work__header .section-title { margin: 0 auto; }
 .work__lead { margin-top: 1rem; color: var(--cream-dim); font-size: 1rem; }
