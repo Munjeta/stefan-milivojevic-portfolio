@@ -175,6 +175,33 @@ section[id] { scroll-margin-top: 3rem; }
   white-space: nowrap;
 }
 
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.theme-toggle:hover { border-color: rgba(var(--fg-rgb), 0.4); background: rgba(var(--fg-rgb), 0.06); }
+.theme-toggle:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+.theme-toggle svg { width: 20px; height: 20px; }
+/* shows the theme you would switch to: sun while dark, moon while light */
+.theme-toggle__moon { display: none; }
+:root[data-theme="light"] .theme-toggle__sun { display: none; }
+:root[data-theme="light"] .theme-toggle__moon { display: block; }
+
 .nav__links {
   display: flex;
   gap: clamp(1rem, 3vw, 2.5rem);
@@ -247,6 +274,7 @@ section[id] { scroll-margin-top: 3rem; }
   .nav__brand-text { display: none; }
   .nav__links { display: none; }
   .nav__toggle { display: flex; }
+  .nav__right { gap: 0.5rem; }
 }
 
 /* HERO */

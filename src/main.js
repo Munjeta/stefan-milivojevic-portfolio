@@ -48,6 +48,43 @@ window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
   if (e.matches) setMobileMenuOpen(false);
 });
 
+// Theme: <html data-theme> is set before first paint (see the inline script in index.html).
+// The visitor's choice is remembered; without one the site follows the system setting.
+const themeToggle = document.getElementById('theme-toggle');
+const themeColors = { dark: '#0b0c0e', light: '#f2f1ee' };
+const systemLight = window.matchMedia('(prefers-color-scheme: light)');
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const next = theme === 'light' ? 'tamnu' : 'svetlu';
+  themeToggle.setAttribute('aria-label', `Uključi ${next} temu`);
+  themeToggle.title = `Uključi ${next} temu`;
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', themeColors[theme]));
+}
+
+function savedTheme() {
+  try {
+    const t = localStorage.getItem('theme');
+    return t === 'light' || t === 'dark' ? t : null;
+  } catch {
+    return null;
+  }
+}
+
+applyTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+themeToggle.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  try {
+    localStorage.setItem('theme', next);
+  } catch {
+    /* private mode: the choice just lasts until reload */
+  }
+});
+systemLight.addEventListener('change', (e) => {
+  if (!savedTheme()) applyTheme(e.matches ? 'light' : 'dark');
+});
+
 const progressFill = document.getElementById('progress-fill');
 lenis.on('scroll', ({ scroll, limit }) => {
   const pct = limit > 0 ? (scroll / limit) * 100 : 0;
